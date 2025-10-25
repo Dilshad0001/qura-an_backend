@@ -199,7 +199,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = 'quran_backend.urls'
 
 TEMPLATES = [
     {
