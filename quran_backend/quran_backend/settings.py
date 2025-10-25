@@ -163,6 +163,7 @@ DEBUG = True
 
 # ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost').split(',')
 ALLOWED_HOSTS = ["*"]
+# settings.py
 
 
 # Application definition
@@ -198,7 +199,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'quran_backend.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATES = [
     {
