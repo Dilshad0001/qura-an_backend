@@ -13,6 +13,7 @@ class Surah(models.Model):
         return self.surah_name_english
 
 
+
 class Ayat(models.Model):
     surah=models.ForeignKey(Surah,on_delete=models.CASCADE)
     ayat_number=models.IntegerField()
