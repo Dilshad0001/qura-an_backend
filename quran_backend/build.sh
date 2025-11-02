@@ -2,5 +2,7 @@
 set -o errexit
 
 pip install -r requirements.txt
-python quran_backend/manage.py collectstatic --no-input
-python quran_backend/manage.py migrate
+# python quran_backend/manage.py collectstatic --no-input
+# python quran_backend/manage.py migrate
+python manage.py collectstatic --no-input
+python manage.py migrate
