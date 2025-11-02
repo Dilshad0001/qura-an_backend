@@ -12,6 +12,7 @@ from drf_yasg import openapi
 
 
 class AdminLoginView(APIView):
+    permission_classes=[]
 
 
     @swagger_auto_schema(

@@ -221,9 +221,14 @@ TEMPLATES = [
 WSGI_APPLICATION = 'quran_backend.wsgi.application'
 
 # Database (PostgreSQL from environment variable)
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=os.environ.get('DATABASE_URL')
+#     )
+# }
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL')
+        default=os.environ.get('DATABASE_URL', f"sqlite:///{BASE_DIR / 'db.sqlite3'}")
     )
 }
 
