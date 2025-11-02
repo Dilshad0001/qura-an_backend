@@ -175,13 +175,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'quran_backend.account',
-    'quran_backend.adminuser',
-    'quran_backend.user',
+    'account',
+    'adminuser',
+    'user',
     'rest_framework',
     'rest_framework.authtoken',
     'drf_yasg',
 ]
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
