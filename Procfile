@@ -1,1 +1,1 @@
-web: gunicorn quran_backend.wsgi
+web: gunicorn quran_backend.wsgi --chdir quran_backend
