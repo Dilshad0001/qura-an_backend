@@ -181,6 +181,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'drf_yasg',
+    'corsheaders',
 ]
 
 
@@ -191,6 +192,7 @@ REST_FRAMEWORK = {
 }
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',  # added for static files
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -252,3 +254,10 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "https://qura-an-frontend.onrender.com",  # 👈 change to your actual frontend URL
+]
+CORS_ALLOW_ALL_ORIGINS = True
