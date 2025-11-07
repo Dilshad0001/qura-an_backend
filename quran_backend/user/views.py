@@ -2,8 +2,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
-from adminuser.models import Surah
-from adminuser .serializers import SurahSerializer,AyatSerializer
+from adminuser.models import Surah,Fraction_ayat
+from adminuser .serializers import SurahSerializer,AyatSerializer,FractionAyatSerializer
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
@@ -130,3 +130,41 @@ class AyatAPIView(APIView):
 #         ayat = get_object_or_404(Ayat, id=ayat_id)
 #         serializer = AyatSerializer(ayat)
 #         return Response(serializer.data, status=status.HTTP_200_OK)    
+
+
+
+
+
+# ===========================================================
+# FRACTION AYAT MANAGEMENT VIEW
+# ===========================================================
+
+class FractionAyatAPIView(APIView):
+    """
+    GET all fraction ayats or filter by ayat_id
+    POST new fraction ayat
+    """
+
+    # ---------------- GET ALL / FILTER BY AYAT ----------------
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter(
+                'ayat_id',
+                openapi.IN_QUERY,
+                description="Filter fraction ayats by Ayat ID",
+                type=openapi.TYPE_INTEGER,
+                required=False
+            )
+        ],
+        responses={200: FractionAyatSerializer(many=True)},
+        operation_summary="Get all Fraction Ayats or filter by Ayat ID",
+        tags=["Fraction Ayat"]
+    )
+    def get(self, request):
+        ayat_id = request.GET.get('ayat_id')
+        if ayat_id:
+            fractions = Fraction_ayat.objects.filter(ayat_id=ayat_id)
+        else:
+            fractions = Fraction_ayat.objects.all()
+        serializer = FractionAyatSerializer(fractions, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

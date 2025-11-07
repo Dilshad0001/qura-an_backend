@@ -14,7 +14,7 @@ urlpatterns = [
     # # GET by ID / PATCH / DELETE
     # path('ayat/<int:ayat_id>/', views.AyatDetailAPIView.as_view(), name='user-ayat-detail'),
     
-    # path('fraction-ayat/', views.FractionAyatAPIView.as_view(), name='user-fraction-ayat-list'),
+    path('fraction-ayat/', views.FractionAyatAPIView.as_view(), name='user-fraction-ayat-list'),
     # path('fraction-ayat/<int:fraction_id>/', views.FractionAyatDetailAPIView.as_view(), name='user-fraction-ayat-detail'),
 
 ]
