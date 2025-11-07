@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Surah,Ayat
+from .models import Surah,Ayat,Fraction_ayat
 
 
 # ===========================================================
@@ -28,4 +28,18 @@ class AyatSerializer(serializers.ModelSerializer):
             "ayat_text",
             "meaning_text",
             "word_meaning"
+        ]
+
+
+
+class FractionAyatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Fraction_ayat
+        fields = [
+            "id",
+            "ayat",
+            "ayat_fraction_number",
+            "ayat_fraction_text",
+            "ayat_fraction_meaning",
+            "ayat_fraction_tafseer"
         ]

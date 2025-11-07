@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('account.urls')),
     path('adminuser/', include('adminuser.urls')),
+    path('user/', include('user.urls')),
 
     # Swagger UI at base URL
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

@@ -2,8 +2,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
-from .models import Surah
-from .serializers import SurahSerializer
+from .models import Surah,Ayat,Fraction_ayat
+from .serializers import SurahSerializer,AyatSerializer,FractionAyatSerializer
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
@@ -121,21 +121,6 @@ class SurahDetailAPIView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-
-
-
-
-
-
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from django.shortcuts import get_object_or_404
-from .models import Ayat, Surah
-from .serializers import AyatSerializer
-from drf_yasg.utils import swagger_auto_schema
-from drf_yasg import openapi
-
 # ===========================================================
 # AYAT MANAGEMENT VIEW
 # ===========================================================
@@ -230,4 +215,104 @@ class AyatDetailAPIView(APIView):
     def delete(self, request, ayat_id):
         ayat = get_object_or_404(Ayat, id=ayat_id)
         ayat.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+
+
+# ===========================================================
+# FRACTION AYAT MANAGEMENT VIEW
+# ===========================================================
+
+class FractionAyatAPIView(APIView):
+    """
+    GET all fraction ayats or filter by ayat_id
+    POST new fraction ayat
+    """
+
+    # ---------------- GET ALL / FILTER BY AYAT ----------------
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter(
+                'ayat_id',
+                openapi.IN_QUERY,
+                description="Filter fraction ayats by Ayat ID",
+                type=openapi.TYPE_INTEGER,
+                required=False
+            )
+        ],
+        responses={200: FractionAyatSerializer(many=True)},
+        operation_summary="Get all Fraction Ayats or filter by Ayat ID",
+        tags=["Fraction Ayat"]
+    )
+    def get(self, request):
+        ayat_id = request.GET.get('ayat_id')
+        if ayat_id:
+            fractions = Fraction_ayat.objects.filter(ayat_id=ayat_id)
+        else:
+            fractions = Fraction_ayat.objects.all()
+        serializer = FractionAyatSerializer(fractions, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    # ---------------- POST ----------------
+    @swagger_auto_schema(
+        request_body=FractionAyatSerializer,
+        responses={201: FractionAyatSerializer()},
+        operation_summary="Create a new Fraction Ayat",
+        tags=["Fraction Ayat"]
+    )
+    def post(self, request):
+        serializer = FractionAyatSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# ===========================================================
+# FRACTION AYAT DETAIL VIEW (GET by ID / PATCH / DELETE)
+# ===========================================================
+
+class FractionAyatDetailAPIView(APIView):
+    """
+    GET, PATCH, DELETE Fraction Ayat by ID
+    """
+
+    # ---------------- GET BY ID ----------------
+    @swagger_auto_schema(
+        responses={200: FractionAyatSerializer()},
+        operation_summary="Get Fraction Ayat by ID",
+        tags=["Fraction Ayat"]
+    )
+    def get(self, request, fraction_id):
+        fraction = get_object_or_404(Fraction_ayat, id=fraction_id)
+        serializer = FractionAyatSerializer(fraction)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    # ---------------- PATCH ----------------
+    @swagger_auto_schema(
+        request_body=FractionAyatSerializer,
+        responses={200: FractionAyatSerializer()},
+        operation_summary="Update Fraction Ayat partially",
+        tags=["Fraction Ayat"]
+    )
+    def patch(self, request, fraction_id):
+        fraction = get_object_or_404(Fraction_ayat, id=fraction_id)
+        serializer = FractionAyatSerializer(fraction, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # ---------------- DELETE ----------------
+    @swagger_auto_schema(
+        responses={204: "Fraction Ayat deleted successfully"},
+        operation_summary="Delete Fraction Ayat by ID",
+        operation_description="Permanently delete a Fraction Ayat by its ID",
+        tags=["Fraction Ayat"]
+    )
+    def delete(self, request, fraction_id):
+        fraction = get_object_or_404(Fraction_ayat, id=fraction_id)
+        fraction.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
