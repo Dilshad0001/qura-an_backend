@@ -3,9 +3,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 from adminuser.models import Surah
-from adminuser .serializers import SurahSerializer
+from adminuser .serializers import SurahSerializer,AyatSerializer
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
+
 
 # ===========================================================
 # SURAH MANAGEMENT VIEW
@@ -108,7 +109,7 @@ class AyatAPIView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)    
     
 
-from adminuser. serializers import AyatSerializer
+# from adminuser. serializers import AyatSerializer
 
 # ===========================================================
 # AYAT DETAIL VIEW (GET by ID / PATCH / DELETE)
