@@ -158,7 +158,7 @@ class FractionAyatAPIView(APIView):
         ],
         responses={200: FractionAyatSerializer(many=True)},
         operation_summary="Get all Fraction Ayats or filter by Ayat ID",
-        tags=["Fraction Ayat"]
+        tags=["user"]
     )
     def get(self, request):
         ayat_id = request.GET.get('ayat_id')
