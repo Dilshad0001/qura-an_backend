@@ -34,7 +34,7 @@ class SurahAPIView(APIView):
         ],
         responses={200: SurahSerializer(many=True)},
         operation_summary="Get all Surahs or search by name",
-        tags=["user-Surah"]
+        tags=["user"]
     )
     def get(self, request):
         search = request.GET.get('search')
@@ -63,7 +63,7 @@ class SurahDetailAPIView(APIView):
     @swagger_auto_schema(
         responses={200: SurahSerializer()},
         operation_summary="Get a Surah by ID",
-        tags=["user-Surah"]
+        tags=["user"]
     )
     def get(self, request, surah_id):
         surah = get_object_or_404(Surah, id=surah_id)
@@ -97,7 +97,7 @@ class AyatAPIView(APIView):
         ],
         responses={200: AyatSerializer(many=True)},
         operation_summary="Get all Ayats or filter by Surah ID",
-        tags=["user-Ayat"]
+        tags=["user"]
     )
     def get(self, request):
         surah_id = request.GET.get('surah_id')
