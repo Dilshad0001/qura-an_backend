@@ -23,6 +23,7 @@ class AyatSerializer(serializers.ModelSerializer):
     class Meta:
         model=Ayat
         fields=[
+            "id",
             "surah",
             "ayat_number",
             "ayat_text",
