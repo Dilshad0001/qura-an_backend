@@ -9,6 +9,9 @@ class Surah(models.Model):
     surah_name_malayalam=models.CharField(max_length=200,null=True,blank=True)
     surah_name_english=models.CharField(max_length=200,null=True,blank=True)
 
+    class Meta:
+        ordering = ['surah_number'] 
+
     def __str__(self):
         return self.surah_name_english
 
@@ -21,6 +24,9 @@ class Ayat(models.Model):
     meaning_text=models.TextField(blank=True,null=True)
     word_meaning=models.TextField(blank=True,null=True)
 
+    class Meta:
+        ordering = ['ayat_number'] 
+
     def __str__(self):
         return f'{self.surah.surah_name_english}-{self.ayat_number} ayat=>{self.ayat_text[:10]}'
 
@@ -31,6 +37,9 @@ class Fraction_ayat(models.Model):
     ayat_fraction_text=models.TextField(blank=True,null=True)
     ayat_fraction_meaning=models.TextField(blank=True,null=True)
     ayat_fraction_tafseer=models.TextField(blank=True,null=True)
+    
+    class Meta:
+        ordering = ['ayat_fraction_number'] 
 
     def __str__(self):
         return f'{self.ayat.ayat_number} ayat of {self.ayat.surah.surah_name_english}=>{self.ayat_fraction_number}- {self.ayat_fraction_text[:10]}'
