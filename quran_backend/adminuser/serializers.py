@@ -33,6 +33,21 @@ class AyatSerializer(serializers.ModelSerializer):
 
 
 
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+
+        # 👉 Add full surah details inside the ayat response
+        data["surah_detail"] = {
+            "id": instance.surah.id,
+            "number": instance.surah.surah_number,
+            "arabic": instance.surah.surah_name_arabic,
+            "malayalam": instance.surah.surah_name_malayalam,
+            "english": instance.surah.surah_name_english,
+        }
+
+        return data
+
+
 class FractionAyatSerializer(serializers.ModelSerializer):
     class Meta:
         model = Fraction_ayat
